@@ -30,6 +30,7 @@ EPOCHS = 2000
 parser = ArgumentParser()
 parser.add_argument("train_dir", help="train dataset")
 parser.add_argument("test_dir", help="test dataset")
+parser.add_argument('--gpu',  help="enable gpu", action='store_true')
 
 
 def load_data(train_path):
@@ -79,6 +80,12 @@ def main():
     args = parser.parse_args()
     train_path = args.train_dir
     test_path = args.test_dir
+
+    if args.gpu:
+        config = tf.ConfigProto()
+        config.gpu_options.allow_growth = True
+        config.gpu_options.per_process_gpu_memory_fraction = 0.85
+        K.tensorflow_backend.set_session(tf.Session(config=config))
 
     img, age, gender = load_data(train_path)
     x_train_data = img
@@ -150,10 +157,8 @@ def main():
 
     with K.get_session() as sess:
         # frozen graph
-        additional_nodes = ['input_1', 'sequential_1/dense_6/Relu']
+        additional_nodes = ['input_1', 'dense_1/Softmax', 'dense_2/Softmax']
         frozen_graph = freeze_session(sess, output_names=additional_nodes)
-
-        input_tensor = sess.graph.get_tensor_by_name('input_1:0')
 
         # save model to pb file
         tf.train.write_graph(frozen_graph, "./", "age_gender_v1.pb", as_text=False)
