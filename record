@@ -1,0 +1,13 @@
+command:
+docker run -it  --rm --gpus all -v /home/astra11/projects/age_gender_estimation/:/age_gender_estimation/ tensorflow/tensorflow:2.0.1-gpu-py3 bash -c "cd /age_gender_estimation && python train_tf2.py"
+
+MobileNetv2:
+Epoch 00038: val_loss improved from 0.38279 to 0.31188, saving model to checkpoints/38-0.31.h5
+83/83 [==============================] - 20s 239ms/step - loss: 0.0298 - age_loss: 0.0113 - gender_loss: 0.0185 -
+age_mse: 0.0113 - gender_acc: 0.9939 - val_loss: 0.3119 - val_age_loss: 0.0301 - val_gender_loss: 0.2817 -
+val_age_mse: 0.0301 - val_gender_acc: 0.9187
+
+Epoch 00138: val_loss did not improve from 0.31188
+83/83 [==============================] - 20s 236ms/step - loss: 0.0110 - age_loss: 0.0067 - gender_loss: 0.0043 -
+age_mse: 0.0067 - gender_acc: 0.9986 - val_loss: 0.9681 - val_age_loss: 0.0495 - val_gender_loss: 0.9186 -
+val_age_mse: 0.0495 - val_gender_acc: 0.8464
