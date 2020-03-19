@@ -123,5 +123,5 @@ tmtagsHistory
 checkpoints/*
 !checkpoints/.keep
 
-test_set/*
-
+test_images/*
+!test_images/.keep
