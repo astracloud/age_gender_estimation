@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  serving:
+    build: ./docker/serving
+    ports:
+      - "8500:8500"
+    volumes:
+      - ./saved_model/age_gender:/models/age_gender
+    environment:
+      - MODEL_NAME=age_gender
+  web:
+    build: ./docker/web
+    depends_on:
+      - serving
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+    command: bash -c "
+      cd app &&
+      python web_server.py
+      "

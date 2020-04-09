@@ -123,5 +123,8 @@ tmtagsHistory
 checkpoints/*
 !checkpoints/.keep
 
+saved_model/*
+!saved_model/.keep
+
 test_images/*
 !test_images/.keep
