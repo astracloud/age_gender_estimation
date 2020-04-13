@@ -131,3 +131,6 @@ test_images/*
 
 tmp/*
 !tmp/.keep
+
+images/*
+!images/.keep
