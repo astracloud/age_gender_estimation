@@ -124,7 +124,10 @@ checkpoints/*
 !checkpoints/.keep
 
 saved_model/*
-!saved_model/.keep
+!saved_model/models.config
 
 test_images/*
 !test_images/.keep
+
+tmp/*
+!tmp/.keep

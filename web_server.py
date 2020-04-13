@@ -70,7 +70,8 @@ class AgeGenderHandler(tornado.web.RequestHandler):
 
             ages.append(age)
             genders.append(gender)
-            face_crops.append([start_x, start_y, end_x, end_y])
+            face_crops.append({'start_x': start_x, 'start_y': start_y,
+                               'end_x': end_x, 'end_y': end_y})
         self.finish({'ages': ages, 'genders': genders, 'face_crops': face_crops})
 
 
