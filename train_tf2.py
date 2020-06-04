@@ -201,14 +201,14 @@ def get_model(input_shape):
         },
         metrics={
             'age': 'mae',
-            'gender': 'acc',
-            "beard": 'acc',
-            "eyes_glasses": 'acc',
-            "eyes_open": 'acc',
-            "mouth_open": 'acc',
-            "mustache": 'acc',
-            "sunglasses": 'acc',
-            "expression": 'acc'
+            'gender': 'binary_accuracy',
+            "beard": 'categorical_accuracy',
+            "eyes_glasses": 'categorical_accuracy',
+            "eyes_open": 'categorical_accuracy',
+            "mouth_open": 'categorical_accuracy',
+            "mustache": 'categorical_accuracy',
+            "sunglasses": 'categorical_accuracy',
+            "expression": 'categorical_accuracy'
         })
 
     return model
