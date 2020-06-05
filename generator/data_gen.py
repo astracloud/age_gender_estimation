@@ -15,7 +15,24 @@ class DataGenerator:
 
     def parse(self, img_folder, csv_path):
         self.img_file_path = glob.glob(img_folder)
-        self.face_detail_info = pd.read_csv(csv_path)
+        df = pd.read_csv(csv_path)
+        self.face_detail_info = {}
+        for index, row in df.iterrows():
+            self.face_detail_info[row['Filename']] = [row['Beard'],
+                                                      row['Eyeglasses'],
+                                                      row['EyesOpen'],
+                                                      row['MouthOpen'],
+                                                      row['Mustache'],
+                                                      row['Sunglasses'],
+                                                      row['FEAR'],
+                                                      row['DISGUSTED'],
+                                                      row['CONFUSED'],
+                                                      row['SAD'],
+                                                      row['CALM'],
+                                                      row['ANGRY'],
+                                                      row['HAPPY'],
+                                                      row['SURPRISED'],
+                                                      ]
 
     def sample_count(self):
         return len(self.img_file_path)
@@ -35,24 +52,23 @@ class DataGenerator:
                 yield img, (age, gender, info[0], info[1], info[2], info[3], info[4], info[5], info[6])
 
     def _df_info(self, path):
-        fn = tf.strings.split(path, '/')[-1]
-        info = self.face_detail_info.loc[self.face_detail_info['Filename'] == fn]
-        val = info['Beard'].values[0]
+        fn = path.split('/')[-1]
+        val = self.face_detail_info[fn][0]
         beard = tf.cast(np.array([val, 1 - val]), tf.float32)
-        val = info['Eyeglasses'].values[0]
+        val = self.face_detail_info[fn][1]
         eyeglasses = tf.cast(np.array([val, 1 - val]), tf.float32)
-        val = info['EyesOpen'].values[0]
+        val = self.face_detail_info[fn][2]
         eyes_open = tf.cast(np.array([val, 1 - val]), tf.float32)
-        val = info['MouthOpen'].values[0]
+        val = self.face_detail_info[fn][3]
         mouth_open = tf.cast(np.array([val, 1 - val]), tf.float32)
-        val = info['Mustache'].values[0]
+        val = self.face_detail_info[fn][4]
         mustache = tf.cast(np.array([val, 1 - val]), tf.float32)
-        val = info['Sunglasses'].values[0]
+        val = self.face_detail_info[fn][5]
         sunglasses = tf.cast(np.array([val, 1 - val]), tf.float32)
-        emo = tf.cast(np.array([info['FEAR'].values[0], info['DISGUSTED'].values[0],
-                                info['CONFUSED'].values[0], info['SAD'].values[0],
-                                info['CALM'].values[0], info['ANGRY'].values[0],
-                                info['HAPPY'].values[0], info['SURPRISED'].values[0]]), tf.float32)
+        emo = tf.cast(np.array([self.face_detail_info[fn][6], self.face_detail_info[fn][7],
+                                self.face_detail_info[fn][8], self.face_detail_info[fn][9],
+                                self.face_detail_info[fn][10], self.face_detail_info[fn][11],
+                                self.face_detail_info[fn][12], self.face_detail_info[fn][13]]), tf.float32)
         return beard, eyeglasses, eyes_open, mouth_open, mustache, sunglasses, emo
 
 
