@@ -9,7 +9,7 @@ from generator.data_gen import DataGenerator
 
 TRAIN_IMAGE_PATH = 'images/train_set/*.jpg'
 VALID_IMAGE_PATH = 'images/afad_align_set/*.jpg'
-TRAIN_DETAIL_DF = 'train_set_label.csv'
+TRAIN_DETAIL_DF = 'merge.csv'
 VALID_DETAIL_DF = 'afad_label.csv'
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 
@@ -180,24 +180,24 @@ def get_model(input_shape):
         loss={
             "age": "mae",
             "gender": "binary_crossentropy",
-            "beard": "binary_crossentropy",
-            "eyes_glasses": "binary_crossentropy",
-            "eyes_open": "binary_crossentropy",
-            "mouth_open": "binary_crossentropy",
-            "mustache": "binary_crossentropy",
-            "sunglasses": "binary_crossentropy",
+            "beard": "categorical_crossentropy",
+            "eyes_glasses": "categorical_crossentropy",
+            "eyes_open": "categorical_crossentropy",
+            "mouth_open": "categorical_crossentropy",
+            "mustache": "categorical_crossentropy",
+            "sunglasses": "categorical_crossentropy",
             "expression": "categorical_crossentropy",
         },
         loss_weights={
             "age": 1,
             "gender": 1,
-            "beard": 0.5,
-            "eyes_glasses": 0.5,
-            "eyes_open": 0.5,
-            "mouth_open": 0.5,
-            "mustache": 0.5,
-            "sunglasses": 0.5,
-            "expression": 0.5,
+            "beard": 1,
+            "eyes_glasses": 1,
+            "eyes_open": 1,
+            "mouth_open": 1,
+            "mustache": 1,
+            "sunglasses": 1,
+            "expression": 1,
         },
         metrics={
             'age': 'mae',
