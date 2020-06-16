@@ -15,6 +15,9 @@ def main():
     for path in glob.glob(os.path.join(SOURCE_FOLDER, '*.jpg')):
         name = path.split('/')[-1]
         img = cv2.imread(path)
+        h, w, _ = img.shape
+        if w < 100 or h < 100:
+            continue
         img = cv2.resize(img, TARGET_SIZE)
         cv2.imwrite(os.path.join(TARGET_FOLDER, name), img)
 
